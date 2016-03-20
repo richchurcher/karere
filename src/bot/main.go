@@ -72,7 +72,7 @@ func AttachmentsHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.Messa
 		TitleLink: "https://devacademy.co.nz",
 		Text:      txt,
 		Fallback:  txt,
-		ImageURL:  "https://drive.google.com/open?id=0ByHQe6U7_e5aTHFWSk83WkZUMXM",
+		ImageURL:  "http://i.imgur.com/4PA5eqt.jpg",
 		Color:     "#7CD197",
 	}
 

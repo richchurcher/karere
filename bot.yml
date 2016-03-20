@@ -1,5 +1,5 @@
-name: Beepboop Starterbot
-description: A simple Go bot starter for Beep Boop
+name: karere
+description: EDA messenger bot
 avatar: resources/avatar.jpg
 #background: resources/background.png
 #config:

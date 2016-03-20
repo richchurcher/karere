@@ -65,7 +65,9 @@ func HelpHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEvent
 }
 
 func AttachmentsHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEvent) {
-	txt := "Karere can help keep you up to date with your course work, and lets us know when you need more help.\nAGPL v3: http://www.gnu.org/licenses/agpl-3.0.html"
+	txt := `Karere can help keep you up to date with your course work, and lets us know when you need more help.\n
+		Licensed under the AGPL v3: http://www.gnu.org/licenses/agpl-3.0.html.\n
+		GitHub: https://github.com/richchurcher/karere`
 	attachment := slack.Attachment{
 		Pretext:   "Karere (_messenger_) is the EDA Slack bot.",
 		Title:     "Keep track of your progress",

@@ -16,9 +16,7 @@ const (
 	WithoutTyping = slackbot.WithoutTyping
 
 	HelpText = "I will respond to the following commands:\n" +
-		"`@karere hi` for a simple message.\n" +
 		"`@karere attachment` to see a Slack attachment message.\n" +
-		"`@karere hi` to demonstrate detecting a mention.\n" +
 		"`@karere help` to see this again."
 )
 
@@ -29,7 +27,7 @@ func main() {
 
 	toMe := bot.Messages(slackbot.DirectMessage, slackbot.DirectMention).Subrouter()
 
-	hi := "karere hi|karere hello"
+	hi := "hi|hello|hey|kia ora|tena koe"
 	toMe.Hear(hi).MessageHandler(HelloHandler)
 	toMe.Hear("help").MessageHandler(HelpHandler)
 	toMe.Hear("attachment").MessageHandler(AttachmentsHandler)
@@ -56,22 +54,16 @@ func CatchAllHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageE
 	bot.Reply(evt, msg, WithTyping)
 }
 
-func MentionHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEvent) {
-	if slackbot.IsMentioned(evt, bot.BotUserID()) {
-		bot.Reply(evt, "You really do care about me. :heart:", WithTyping)
-	}
-}
-
 func HelpHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEvent) {
 	bot.Reply(evt, HelpText, WithTyping)
 }
 
 func AttachmentsHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEvent) {
-	txt := "Beep Beep Boop is a ridiculously simple hosting platform for your Slackbots."
+	txt := "Karere (literally, _messenger_) is the EDA Slack bot."
 	attachment := slack.Attachment{
-		Pretext:   "We bring bots to life. :sunglasses: :thumbsup:",
-		Title:     "Host, deploy and share your bot in seconds.",
-		TitleLink: "https://beepboophq.com/",
+		Pretext:   "Karere. :sunglasses: :thumbsup:",
+		Title:     "Keep track of your progress",
+		TitleLink: "https://devacademy.co.nz",
 		Text:      txt,
 		Fallback:  txt,
 		ImageURL:  "https://storage.googleapis.com/beepboophq/_assets/bot-1.22f6fb.png",

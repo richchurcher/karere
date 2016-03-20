@@ -30,7 +30,7 @@ func main() {
 	hi := "hi|hello|hey|kia ora|tena koe"
 	toMe.Hear(hi).MessageHandler(HelloHandler)
 	toMe.Hear("help").MessageHandler(HelpHandler)
-	toMe.Hear("attachment").MessageHandler(AttachmentsHandler)
+	toMe.Hear("about").MessageHandler(AttachmentsHandler)
 	bot.Hear(`<@([a-zA-z0-9]+)?>`).MessageHandler(MentionHandler)
 	toMe.Hear("(karere ).*").MessageHandler(CatchAllHandler)
 	bot.Run()
@@ -65,9 +65,9 @@ func HelpHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEvent
 }
 
 func AttachmentsHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEvent) {
-	txt := "Karere (literally, _messenger_) is the EDA Slack bot."
+	txt := "Karere can help keep you up to date with your course work, and lets us know when you need more help.\nAGPL v3: http://www.gnu.org/licenses/agpl-3.0.html"
 	attachment := slack.Attachment{
-		Pretext:   "Karere. :sunglasses: :thumbsup:",
+		Pretext:   "Karere (_messenger_) is the EDA Slack bot.",
 		Title:     "Keep track of your progress",
 		TitleLink: "https://devacademy.co.nz",
 		Text:      txt,

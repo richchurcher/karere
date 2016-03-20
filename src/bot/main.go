@@ -31,7 +31,7 @@ func main() {
 	toMe.Hear(hi).MessageHandler(HelloHandler)
 	toMe.Hear("help").MessageHandler(HelpHandler)
 	toMe.Hear("attachment").MessageHandler(AttachmentsHandler)
-	toMe.Hear(`<@([a-zA-z0-9]+)?>`).MessageHandler(MentionHandler)
+	bot.Hear(`<@([a-zA-z0-9]+)?>`).MessageHandler(MentionHandler)
 	toMe.Hear("(karere ).*").MessageHandler(CatchAllHandler)
 	bot.Run()
 }
@@ -52,6 +52,12 @@ func HelloHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEven
 func CatchAllHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEvent) {
 	msg := fmt.Sprintf("I'm sorry, I don't know how to: `%s`.\n%s", evt.Text, HelpText)
 	bot.Reply(evt, msg, WithTyping)
+}
+
+func MentionHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEvent) {
+	if slackbot.IsMentioned(evt, bot.BotUserID()) {
+		bot.Reply(evt, "You really do care about me. :heart:", WithTyping)
+	}
 }
 
 func HelpHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEvent) {

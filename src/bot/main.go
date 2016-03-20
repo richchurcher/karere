@@ -15,11 +15,11 @@ const (
 	WithTyping    = slackbot.WithTyping
 	WithoutTyping = slackbot.WithoutTyping
 
-	HelpText = "I will respond to the following messages: \n" +
-		"`karere hi` for a simple message.\n" +
-		"`karere attachment` to see a Slack attachment message.\n" +
-		"`karere @<your bot's name>` to demonstrate detecting a mention.\n" +
-		"`karere help` to see this again."
+	HelpText = "I will respond to the following commands:\n" +
+		"`@karere hi` for a simple message.\n" +
+		"`@karere attachment` to see a Slack attachment message.\n" +
+		"`@karere hi` to demonstrate detecting a mention.\n" +
+		"`@karere help` to see this again."
 )
 
 var greetingPrefixes = []string{"Hi", "Hello", "Hey", "Kia ora"}
@@ -30,7 +30,6 @@ func main() {
 	toMe := bot.Messages(slackbot.DirectMessage, slackbot.DirectMention).Subrouter()
 
 	hi := "karere hi|karere hello"
-	toMe.Hear(hi).MessageHandler(HelloHandler)
 	toMe.Hear(hi).MessageHandler(HelloHandler)
 	toMe.Hear("help").MessageHandler(HelpHandler)
 	toMe.Hear("attachment").MessageHandler(AttachmentsHandler)

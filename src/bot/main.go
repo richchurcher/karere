@@ -29,13 +29,13 @@ func main() {
 
 	toMe := bot.Messages(slackbot.DirectMessage, slackbot.DirectMention).Subrouter()
 
-	hi := "hi|hello|karere hi|karere hello"
+	hi := "karere hi|karere hello"
 	toMe.Hear(hi).MessageHandler(HelloHandler)
-	bot.Hear(hi).MessageHandler(HelloHandler)
-	bot.Hear("help|bot help").MessageHandler(HelpHandler)
-	bot.Hear("attachment|bot attachment").MessageHandler(AttachmentsHandler)
-	bot.Hear(`<@([a-zA-z0-9]+)?>`).MessageHandler(MentionHandler)
-	bot.Hear("(bot ).*").MessageHandler(CatchAllHandler)
+	toMe.Hear(hi).MessageHandler(HelloHandler)
+	toMe.Hear("help").MessageHandler(HelpHandler)
+	toMe.Hear("attachment").MessageHandler(AttachmentsHandler)
+	toMe.Hear(`<@([a-zA-z0-9]+)?>`).MessageHandler(MentionHandler)
+	toMe.Hear("(karere ).*").MessageHandler(CatchAllHandler)
 	bot.Run()
 }
 

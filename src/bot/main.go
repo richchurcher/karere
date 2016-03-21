@@ -16,18 +16,19 @@ const (
 	WithoutTyping = slackbot.WithoutTyping
 
 	HelpText = "Karere uses git-style command syntax:\n" +
-		"`about`\n" +
-		"`add <github-user> <slack-user> [cohort-repo]\n" +
-		"`blocked [cohort-repo]`\n" +
-		"`help`\n" +
-		"`init [cohort-name]`\n" +
-		"`log [cohort-name]`.\n" +
-		"`mv <github-user> <old-cohort-repo> <new-cohort-repo>`\n" +
-		"`push u2w3 [cohort-repo]`\n" +
-		"  (won't overwrite existing assignments, but will update new students)\n" +
-		"`reset u1w1 [cohort-repo]`\n" +
-		"`rm <github-user> [cohort-repo]`\n" +
-		"`version`\n" +
+		"`about`: access _all_, implemented _yes_.\n" +
+		"`add <github-user> <slack-user> [cohort-repo]`: access _restrict_, implemented _no_.\n" +
+		"`blocks [cohort-repo]`: access _restrict_, implemented _no_.\n" +
+		"`gist [add|rm] [gist-name]`: access _all_, implemented _no_.\n" +
+		"`help`: access _all_, implemented _partial_.\n" +
+		"`init [cohort-name]`: access _restrict_, implemented _no_.\n" +
+		"`log [cohort-name]`: access _restrict_, implemented _no_.\n" +
+		"`mv <github-user> <old-cohort-repo> <new-cohort-repo>: access _restrict_, implemented _no_.`\n" +
+		"`push u2w3 [cohort-repo]`: access _restrict_, implemented _no_.\n" +
+		"`reset u1w1 [cohort-repo]`: access _restrict_, implemented _no_.\n" +
+		"`rm <github-user> [cohort-repo]`: access _restrict_, implemented _no_.\n" +
+		"`snip [add|rm] [snippet-name]`: access _all_, implemented _no_.\n" +
+		"`version`: access _restrict_, implemented _no_.\n" +
 		"In all cases where _cohort-repo_ is omitted, Karere will attempt to use the Slack channel name instead."
 )
 
@@ -79,6 +80,14 @@ func AttachmentsHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.Messa
 	txt := `Karere can help keep you up to date with your course work, and lets us know when you need more help.
 Licensed under the AGPL v3: http://www.gnu.org/licenses/agpl-3.0.html .
 GitHub: https://github.com/richchurcher/karere`
+	fields := []slack.AttachmentField{
+		AttachmentField{
+			Title: "Foo",
+			Value: "Bar",
+			Short: true,
+		},
+	}
+
 	attachment := slack.Attachment{
 		Pretext:   "Karere (_messenger_) is the EDA Slack bot.",
 		Title:     "Keep track of your progress",
@@ -87,6 +96,7 @@ GitHub: https://github.com/richchurcher/karere`
 		Fallback:  txt,
 		ImageURL:  "http://i.imgur.com/4PA5eqt.jpg",
 		Color:     "#7CD197",
+		Fields:    fields,
 	}
 
 	// supports multiple attachments

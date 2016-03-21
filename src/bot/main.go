@@ -12,12 +12,20 @@ import (
 )
 
 const (
-	WithTyping    = slackbot.WithTyping
-	WithoutTyping = slackbot.WithoutTyping
-
-	HelpText = "I will respond to the following commands:\n" +
-		"`@karere attachment` to see a Slack attachment message.\n" +
-		"`@karere help` to see this again."
+	HelpText = "Karere uses git-style command syntax:\n" +
+		"`about`\n" +
+		"`add <github-user> <slack-user> [cohort-repo]\n" +
+		"`blocked [cohort-repo]`\n" +
+		"`help`\n" +
+		"`init [cohort-name]`\n" +
+		"`log [cohort-name]`.\n" +
+		"`mv <github-user> <old-cohort-repo> <new-cohort-repo>`\n" +
+		"`push u2w3 [cohort-repo]`\n" +
+		"  (won't overwrite existing assignments, but will update new students)\n" +
+		"`reset u1w1 [cohort-repo]`\n" +
+		"`rm <github-user> [cohort-repo]`\n" +
+		"`version`\n" +
+		"In all cases where _cohort-repo_ is omitted, Karere will attempt to use the Slack channel name instead."
 )
 
 var greetingPrefixes = []string{"Hi", "Hello", "Hey", "Kia ora"}

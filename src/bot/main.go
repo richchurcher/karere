@@ -16,19 +16,19 @@ const (
 	WithoutTyping = slackbot.WithoutTyping
 
 	HelpText = "Karere uses git-style command syntax:\n" +
-		"\u2022 `about`: access _all_, implemented _yes_.\n" +
-		"\u0149 `add <github-user> <slack-user> [cohort-repo]`: access _restrict_, implemented _no_.\n" +
-		"* `blocks [cohort-repo]`: access _restrict_, implemented _no_.\n" +
-		"* `gist [add|rm] [gist-name]`: access _all_, implemented _no_.\n" +
-		"* `help`: access _all_, implemented _partial_.\n" +
-		"* `init [cohort-name]`: access _restrict_, implemented _no_.\n" +
-		"* `log [cohort-name]`: access _restrict_, implemented _no_.\n" +
-		"* `mv <github-user> <old-cohort-repo> <new-cohort-repo>: access _restrict_, implemented _no_.`\n" +
-		"* `push u2w3 [cohort-repo]`: access _restrict_, implemented _no_.\n" +
-		"* `reset u1w1 [cohort-repo]`: access _restrict_, implemented _no_.\n" +
-		"* `rm <github-user> [cohort-repo]`: access _restrict_, implemented _no_.\n" +
-		"* `snip [add|rm] [snippet-name]`: access _all_, implemented _no_.\n" +
-		"* `version`: access _restrict_, implemented _no_.\n" +
+		" \u2022 `about`: access _all_, implemented _yes_.\n" +
+		" \u2022 `add <github-user> <slack-user> [cohort-repo]`: access _restrict_, implemented _no_.\n" +
+		" \u2022 `blocks [cohort-repo]`: access _restrict_, implemented _no_.\n" +
+		" \u2022 `gist [add|rm] [gist-name]`: access _all_, implemented _no_.\n" +
+		" \u2022 `help`: access _all_, implemented _partial_.\n" +
+		" \u2022 `init [cohort-name]`: access _restrict_, implemented _no_.\n" +
+		" \u2022 `log [cohort-name]`: access _restrict_, implemented _no_.\n" +
+		" \u2022 `mv <github-user> <old-cohort-repo> <new-cohort-repo>: access _restrict_, implemented _no_.`\n" +
+		" \u2022 `push u2w3 [cohort-repo]`: access _restrict_, implemented _no_.\n" +
+		" \u2022 `reset u1w1 [cohort-repo]`: access _restrict_, implemented _no_.\n" +
+		" \u2022 `rm <github-user> [cohort-repo]`: access _restrict_, implemented _no_.\n" +
+		" \u2022 `snip [add|rm] [snippet-name]`: access _all_, implemented _no_.\n" +
+		" \u2022 `version`: access _restrict_, implemented _no_.\n" +
 		"In all cases where _cohort-repo_ is omitted, Karere will attempt to use the Slack channel name instead."
 )
 
@@ -42,7 +42,7 @@ func main() {
 	hi := "hi|hello|hey|kia ora|tena koe"
 	toMe.Hear(hi).MessageHandler(HelloHandler)
 	toMe.Hear("help").MessageHandler(HelpHandler)
-	toMe.Hear("about").MessageHandler(AttachmentsHandler)
+	toMe.Hear("about").MessageHandler(AboutHandler)
 	bot.Hear(`<@([a-zA-z0-9]+)?>`).MessageHandler(MentionHandler)
 	toMe.Hear("(karere ).*").MessageHandler(CatchAllHandler)
 	bot.Run()
@@ -76,18 +76,10 @@ func HelpHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEvent
 	bot.Reply(evt, HelpText, WithTyping)
 }
 
-func AttachmentsHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEvent) {
+func AboutHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEvent) {
 	txt := `Karere can help keep you up to date with your course work, and lets us know when you need more help.
 Licensed under the AGPL v3: http://www.gnu.org/licenses/agpl-3.0.html .
 GitHub: https://github.com/richchurcher/karere`
-	fields := []slack.AttachmentField{
-		slack.AttachmentField{
-			Title: "Foo",
-			Value: "Bar",
-			Short: true,
-		},
-	}
-
 	attachment := slack.Attachment{
 		Pretext:   "Karere (_messenger_) is the EDA Slack bot.",
 		Title:     "Keep track of your progress",
@@ -96,10 +88,8 @@ GitHub: https://github.com/richchurcher/karere`
 		Fallback:  txt,
 		ImageURL:  "http://i.imgur.com/4PA5eqt.jpg",
 		Color:     "#7CD197",
-		Fields:    fields,
 	}
 
-	// supports multiple attachments
 	attachments := []slack.Attachment{attachment}
 	bot.ReplyWithAttachments(evt, attachments, WithTyping)
 }

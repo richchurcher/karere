@@ -12,6 +12,9 @@ import (
 )
 
 const (
+	WithTyping    = slackbot.WithTyping
+	WithoutTyping = slackbot.WithoutTyping
+
 	HelpText = "Karere uses git-style command syntax:\n" +
 		"`about`\n" +
 		"`add <github-user> <slack-user> [cohort-repo]\n" +

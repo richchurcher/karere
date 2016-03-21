@@ -14,6 +14,22 @@ import (
 const (
 	WithTyping    = slackbot.WithTyping
 	WithoutTyping = slackbot.WithoutTyping
+
+	HelpText = "Karere uses git-style command syntax:\n" +
+		"* `about`: access _all_, implemented _yes_.\n" +
+		"* `add <github-user> <slack-user> [cohort-repo]`: access _restrict_, implemented _no_.\n" +
+		"* `blocks [cohort-repo]`: access _restrict_, implemented _no_.\n" +
+		"* `gist [add|rm] [gist-name]`: access _all_, implemented _no_.\n" +
+		"* `help`: access _all_, implemented _partial_.\n" +
+		"* `init [cohort-name]`: access _restrict_, implemented _no_.\n" +
+		"* `log [cohort-name]`: access _restrict_, implemented _no_.\n" +
+		"* `mv <github-user> <old-cohort-repo> <new-cohort-repo>: access _restrict_, implemented _no_.`\n" +
+		"* `push u2w3 [cohort-repo]`: access _restrict_, implemented _no_.\n" +
+		"* `reset u1w1 [cohort-repo]`: access _restrict_, implemented _no_.\n" +
+		"* `rm <github-user> [cohort-repo]`: access _restrict_, implemented _no_.\n" +
+		"* `snip [add|rm] [snippet-name]`: access _all_, implemented _no_.\n" +
+		"* `version`: access _restrict_, implemented _no_.\n" +
+		"In all cases where _cohort-repo_ is omitted, Karere will attempt to use the Slack channel name instead."
 )
 
 var greetingPrefixes = []string{"Hi", "Hello", "Hey", "Kia ora"}
@@ -41,6 +57,8 @@ func HelloHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEven
 		dmMsg := "It's nice to talk to you directly."
 		bot.Reply(evt, dmMsg, WithoutTyping)
 	}
+
+	bot.Reply(evt, "If you'd like to talk some more, "+HelpText, WithTyping)
 }
 
 func CatchAllHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEvent) {
@@ -55,57 +73,7 @@ func MentionHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEv
 }
 
 func HelpHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEvent) {
-	//HelpText = "Karere uses git-style command syntax:\n" +
-	//"`about`: access _all_, implemented _yes_.\n" +
-	//"`add <github-user> <slack-user> [cohort-repo]`: access _restrict_, implemented _no_.\n" +
-	//"`blocks [cohort-repo]`: access _restrict_, implemented _no_.\n" +
-	//"`gist [add|rm] [gist-name]`: access _all_, implemented _no_.\n" +
-	//"`help`: access _all_, implemented _partial_.\n" +
-	//"`init [cohort-name]`: access _restrict_, implemented _no_.\n" +
-	//"`log [cohort-name]`: access _restrict_, implemented _no_.\n" +
-	//"`mv <github-user> <old-cohort-repo> <new-cohort-repo>: access _restrict_, implemented _no_.`\n" +
-	//"`push u2w3 [cohort-repo]`: access _restrict_, implemented _no_.\n" +
-	//"`reset u1w1 [cohort-repo]`: access _restrict_, implemented _no_.\n" +
-	//"`rm <github-user> [cohort-repo]`: access _restrict_, implemented _no_.\n" +
-	//"`snip [add|rm] [snippet-name]`: access _all_, implemented _no_.\n" +
-	//"`version`: access _restrict_, implemented _no_.\n" +
-	//"In all cases where _cohort-repo_ is omitted, Karere will attempt to use the Slack channel name instead."
-	txt := "In all cases where _cohort-repo_ is ommited, Karere will attempt to use the Slack channel name instead."
-	fields := []slack.AttachmentField{
-		slack.AttachmentField{
-			Title: "Command",
-			Value: "`about`\n" +
-				"`add <github-user> <slack-user> [cohort-repo]`\n" +
-				"`blocks [cohort-repo]`\n",
-			Short: true,
-		},
-		slack.AttachmentField{
-			Title: "Access",
-			Value: "_all_\n" +
-				"_restricted_\n" +
-				"_restricted/self_\n",
-			Short: true,
-		},
-		slack.AttachmentField{
-			Title: "Implemented",
-			Value: "_yes_\n" +
-				"_no_\n" +
-				"_no_\n",
-			Short: true,
-		},
-	}
-
-	attachment := slack.Attachment{
-		Pretext:  "Karere help",
-		Text:     txt,
-		Fallback: txt,
-		Color:    "#7CD197",
-		Fields:   fields,
-	}
-
-	// supports multiple attachments
-	attachments := []slack.Attachment{attachment}
-	bot.ReplyWithAttachments(evt, attachments, WithTyping)
+	bot.Reply(evt, HelpText, WithTyping)
 }
 
 func AttachmentsHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEvent) {

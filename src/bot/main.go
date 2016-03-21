@@ -81,7 +81,7 @@ func AttachmentsHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.Messa
 Licensed under the AGPL v3: http://www.gnu.org/licenses/agpl-3.0.html .
 GitHub: https://github.com/richchurcher/karere`
 	fields := []slack.AttachmentField{
-		AttachmentField{
+		slack.AttachmentField{
 			Title: "Foo",
 			Value: "Bar",
 			Short: true,

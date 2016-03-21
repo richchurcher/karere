@@ -41,12 +41,10 @@ func HelloHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEven
 		dmMsg := "It's nice to talk to you directly."
 		bot.Reply(evt, dmMsg, WithoutTyping)
 	}
-
-	bot.Reply(evt, "If you'd like to talk some more, "+HelpText, WithTyping)
 }
 
 func CatchAllHandler(ctx context.Context, bot *slackbot.Bot, evt *slack.MessageEvent) {
-	msg := fmt.Sprintf("I'm sorry, I don't know how to: `%s`.\n%s", evt.Text, HelpText)
+	msg := fmt.Sprintf("I'm sorry, I don't know how to: `%s`.\n", evt.Text)
 	bot.Reply(evt, msg, WithTyping)
 }
 

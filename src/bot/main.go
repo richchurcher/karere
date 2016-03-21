@@ -16,8 +16,8 @@ const (
 	WithoutTyping = slackbot.WithoutTyping
 
 	HelpText = "Karere uses git-style command syntax:\n" +
-		"* `about`: access _all_, implemented _yes_.\n" +
-		"* `add <github-user> <slack-user> [cohort-repo]`: access _restrict_, implemented _no_.\n" +
+		"\u2022 `about`: access _all_, implemented _yes_.\n" +
+		"\u0149 `add <github-user> <slack-user> [cohort-repo]`: access _restrict_, implemented _no_.\n" +
 		"* `blocks [cohort-repo]`: access _restrict_, implemented _no_.\n" +
 		"* `gist [add|rm] [gist-name]`: access _all_, implemented _no_.\n" +
 		"* `help`: access _all_, implemented _partial_.\n" +
